@@ -5,7 +5,6 @@ import TrashPage from '../Pages/TrashPage/TrashPage';
 import NotFoundPage from '../Pages/NotFoundPage/NotFoundPage';
 
 const Router = () => {
-
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { TodosState } from '../../../interfaces/mainInterface';
+import { TodosState } from '../../../interfaces/mainInterface'
 
 const initialState: TodosState = {
   todos: [],
@@ -40,19 +40,25 @@ export const todoSlice = createSlice({
       state.todos = state.todos.filter((todo) => todo.id !== action.payload.id)
     },
     editStatusOverdue: (state, action) => {
-      state.todos = state.todos.map(todo => {
-        if(todo.id === action.payload.id) {
+      state.todos = state.todos.map((todo) => {
+        if (todo.id === action.payload.id) {
           return {
             ...todo,
-            status: 'overdue'
+            status: 'overdue',
           }
         } else {
           return todo
         }
       })
-    }
+    },
   },
 })
 
-export const { completeTodo, addTodo, editTodo, deleteTodo, editStatusOverdue } = todoSlice.actions
+export const {
+  completeTodo,
+  addTodo,
+  editTodo,
+  deleteTodo,
+  editStatusOverdue,
+} = todoSlice.actions
 export default todoSlice.reducer

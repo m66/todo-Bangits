@@ -1,5 +1,4 @@
-// this #counter is intended for counting todos 
-// and assigned as ID
+// this state is intended for showing Tour Component only once
 
 import { createSlice } from '@reduxjs/toolkit'
 

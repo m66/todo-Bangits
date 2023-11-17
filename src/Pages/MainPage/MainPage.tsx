@@ -32,14 +32,12 @@ import {
   OrderedListOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import type { RangePickerProps } from 'antd/es/date-picker';
 import dayjs from 'dayjs';
-
 import { useFormik } from 'formik';
-
 import { useSelector, useDispatch } from 'react-redux';
+import type { RangePickerProps } from 'antd/es/date-picker';
 
-import { formSchema } from '../../schemas';
+
 import {
   addTodo,
   completeTodo,
@@ -47,10 +45,11 @@ import {
   editStatusOverdue,
   editTodo,
 } from '../../redux/features/todos/todosSlice';
-import { addToTrashedTodo } from '../../redux/features/trashedTodos/trashedTodosSlice';
-import { increment } from '../../redux/features/counter/counterSlice';
+import { formSchema } from '../../schemas';
 import { ITodoItem } from '../../interfaces/mainInterface';
 import { toured } from '../../redux/features/isToured/isTouredSlice';
+import { increment } from '../../redux/features/counter/counterSlice';
+import { addToTrashedTodo } from '../../redux/features/trashedTodos/trashedTodosSlice';
 
 const { Content } = Layout;
 const dateFormat = 'DD/MM/YYYY';
@@ -103,9 +102,10 @@ function MainPage() {
       );
       onCancelEditing();
     },
-    validationSchema: formSchema
+    validationSchema: formSchema,
   });
 
+  // Start of For Tour Component
   const [open, setOpen] = useState<boolean>(true);
   const ref1 = useRef(null);
   const ref2 = useRef(null);
@@ -155,6 +155,8 @@ function MainPage() {
       icon: <CloseCircleOutlined />,
     },
   ];
+  // End of For Tour Component
+
 
   const columns = [
     {
@@ -189,10 +191,13 @@ function MainPage() {
         let elem;
         if (record.deadline) {
           const dif = calculateDateDifference(record.deadline) + 1;
-          if (dif < 0) {  // ????
-            dispatch(editStatusOverdue({
-              id: record.id
-            }))
+          if (dif < 0) {
+            // ????
+            dispatch(
+              editStatusOverdue({
+                id: record.id,
+              })
+            );
           }
         }
         switch (record.status) {
@@ -277,6 +282,7 @@ function MainPage() {
     },
   ];
 
+  // Disabled select passed date
   const disabledDate: RangePickerProps['disabledDate'] = (current) => {
     return current && current < dayjs().endOf('day');
   };
@@ -333,6 +339,7 @@ function MainPage() {
     return daysDifference;
   }
 
+  // dropdown config for filtering data BY STATUS
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     // message.info(`Filtered by ${fliteredStatusText}`);
     setFliteredStatusText(e.key);
@@ -394,6 +401,7 @@ function MainPage() {
               return todo.status === fliteredStatusText;
             }
           })}
+        // working not compitly correct for showing DESCRIPTION
         // expandable={{
         //   expandedRowRender: (record) => (
         //     <p style={{ margin: 0 }}>{record.description}</p>
@@ -474,7 +482,6 @@ function MainPage() {
         <Input
           name="title"
           value={editFormik.values.title}
-          // style={{ marginBottom: '10px' }}
           onChange={editFormik.handleChange}
           className={`${
             editFormik.errors.description ? 'inputError' : ''
@@ -486,9 +493,7 @@ function MainPage() {
         )}
         <Input
           name="description"
-          // style={{ marginBottom: '10px' }}
           value={editFormik.values.description}
-          // className="mb-3"
           onChange={editFormik.handleChange}
           className={`${
             editFormik.errors.description ? 'inputError' : ''

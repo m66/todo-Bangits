@@ -1,15 +1,14 @@
-import Router from '../routes/Router';
 import { Layout, Space } from 'antd';
 
+import Router from '../routes/Router';
 import Header from '../components/ui/Header/Header';
 
 import './App.scss';
 
 function App() {
-  
   return (
     <div className="App">
-      <Space direction="vertical" style={{ width: '100%' }}>
+      <Space direction="vertical" className="space">
         <Layout>
           <Header />
           <Router />

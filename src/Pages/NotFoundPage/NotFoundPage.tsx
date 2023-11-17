@@ -1,5 +1,5 @@
+import { Link } from 'react-router-dom';
 
-import { Link } from "react-router-dom";
 import './notFoundPage.scss';
 
 const NotFoundPage = () => {
@@ -12,7 +12,7 @@ const NotFoundPage = () => {
         <Link to="/">Return Home</Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NotFoundPage
+export default NotFoundPage;

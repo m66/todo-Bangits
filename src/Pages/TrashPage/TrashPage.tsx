@@ -5,14 +5,16 @@ import {
   DeleteOutlined,
   CloseCircleOutlined,
 } from '@ant-design/icons';
-import './trashPage.scss';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+
 import {
   deleteAllTodos,
   deleteTodo,
 } from '../../redux/features/trashedTodos/trashedTodosSlice';
 import { addTodo } from '../../redux/features/todos/todosSlice';
+
+import './trashPage.scss';
 
 const TrashPage = () => {
   const dispatch = useDispatch();
