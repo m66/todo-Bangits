@@ -1,0 +1,30 @@
+.mainPage {
+  .headline {
+    padding: 15px;
+
+    h1 {
+      font-size: 24px;
+    }
+  }
+
+  .editBtn {
+    margin-left: 12px;
+    font-size: 21px;
+    color: orange;
+  }
+
+  .deleteBtn {
+    margin-left: 12px;
+    font-size: 18.5px;
+    color: red;
+  }
+
+  .addBtn  {
+    font-size: 18.5px;
+    color: green;
+  }
+
+  .searchInput {
+    width: 200px;
+  }
+}

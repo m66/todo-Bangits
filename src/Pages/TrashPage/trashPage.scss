@@ -1,0 +1,26 @@
+.trashPage {
+  h1 {
+    margin-left: 15px;
+    font-size: 20px;
+    color: red;
+  }
+  .headLine {
+    padding: 15px 20px;
+
+    .goBackBtn {
+      font-size: 25px;
+    }
+  }
+
+  .restoreBtn {
+    margin-left: 12px;
+    font-size: 21px;
+    color: orange;
+  }
+
+  .deleteBtn {
+    margin-left: 12px;
+    font-size: 21px;
+    color: red;
+  }
+}
