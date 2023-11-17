@@ -13,13 +13,14 @@ import {
   Space,
   Layout,
   Button,
+  message,
   Dropdown,
   Statistic,
   MenuProps,
   TourProps,
   DatePicker,
+  Typography,
   CountdownProps,
-  message
 } from 'antd';
 import {
   EditOutlined,
@@ -57,6 +58,7 @@ import { addToTrashedTodo } from '../../redux/features/trashedTodos/trashedTodos
 const { Content } = Layout;
 const dateFormat = 'DD/MM/YYYY';
 const { Countdown } = Statistic;
+const { Paragraph } = Typography;
 
 // const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
 
@@ -187,13 +189,14 @@ function MainPage() {
       key: '2',
       title: 'Task Name',
       dataIndex: 'title',
+      render: (title: string) => <Paragraph copyable>{title}</Paragraph>
     },
     {
       key: '3',
       title: 'Description',
       dataIndex: 'description',
       render: (description: string | undefined) =>
-        description ? description : 'No Description',
+        description ? <Paragraph copyable>{description}</Paragraph> : 'No Description',
     },
     {
       key: '4',
@@ -207,7 +210,7 @@ function MainPage() {
       key: '5',
       title: 'Staying time',
       dataIndex: 'deadline',
-      render: (deadline: string) => (<Countdown value={countDateDiff(deadline)} onFinish={onFinish} />) 
+      render: (deadline: string) => (deadline ? <Countdown value={countDateDiff(deadline)} onFinish={onFinish} /> : 'No Deadline') 
     },
     {
       key: '5',
@@ -409,7 +412,7 @@ function MainPage() {
           </Button>
         </Dropdown>
         <Link to="/history">
-          <Badge count={trashedTodos.length}>
+          <Badge count={0}>
             <Button type='dashed'>History</Button>
           </Badge>
         </Link>
