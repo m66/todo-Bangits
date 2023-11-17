@@ -1,4 +1,4 @@
-import { Button, Flex, Popover, Table, Tag } from 'antd';
+import { Button, Flex, Layout, Popover, Table, Tag } from 'antd';
 import {
   LeftCircleOutlined,
   ReloadOutlined,
@@ -19,6 +19,7 @@ import './trashPage.scss';
 const TrashPage = () => {
   const dispatch = useDispatch();
   const { trashedTodos } = useSelector((state: any) => state.trashedTodos);
+  const { Content } = Layout;
 
   const columns = [
     {
@@ -85,7 +86,7 @@ const TrashPage = () => {
   ];
 
   return (
-    <div className="trashPage">
+    <Content className="trashPage">
       <Flex className="headLine" justify="space-between" align="center">
         <Flex align="center">
           <Link to="/">
@@ -103,7 +104,7 @@ const TrashPage = () => {
         </Button>
       </Flex>
       <Table columns={columns} dataSource={trashedTodos}></Table>
-    </div>
+    </Content>
   );
 };
 

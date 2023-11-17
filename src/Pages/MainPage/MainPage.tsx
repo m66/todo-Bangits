@@ -408,6 +408,11 @@ function MainPage() {
             </Space>
           </Button>
         </Dropdown>
+        <Link to="/history">
+          <Badge count={trashedTodos.length}>
+            <Button type='dashed'>History</Button>
+          </Badge>
+        </Link>
         <Link to="/trash">
           <Badge count={trashedTodos.length}>
             <Button danger>Trash</Button>
