@@ -3,34 +3,37 @@ import { Link } from 'react-router-dom';
 import './mainPage.scss';
 
 import {
-  Layout,
-  Button,
-  Table,
+  Tag,
   Flex,
+  Tour,
+  Badge,
   Modal,
   Input,
-  DatePicker,
-  Tag,
-  TourProps,
-  Tour,
-  Dropdown,
+  Table,
   Space,
+  Layout,
+  Button,
+  Dropdown,
+  Statistic,
   MenuProps,
-  Badge,
+  TourProps,
+  DatePicker,
+  CountdownProps,
+  message
 } from 'antd';
 import {
   EditOutlined,
-  DeleteOutlined,
-  CloseCircleOutlined,
-  ExclamationCircleOutlined,
   SyncOutlined,
-  CheckOutlined,
-  CheckCircleOutlined,
   DownOutlined,
-  ClockCircleOutlined,
-  WarningOutlined,
-  OrderedListOutlined,
+  CheckOutlined,
   SearchOutlined,
+  DeleteOutlined,
+  WarningOutlined,
+  CheckCircleOutlined,
+  ClockCircleOutlined,
+  CloseCircleOutlined,
+  OrderedListOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { useFormik } from 'formik';
@@ -40,10 +43,10 @@ import type { RangePickerProps } from 'antd/es/date-picker';
 
 import {
   addTodo,
-  completeTodo,
-  deleteTodo,
-  editStatusOverdue,
   editTodo,
+  deleteTodo,
+  completeTodo,
+  editStatusOverdue,
 } from '../../redux/features/todos/todosSlice';
 import { formSchema } from '../../schemas';
 import { ITodoItem } from '../../interfaces/mainInterface';
@@ -53,11 +56,14 @@ import { addToTrashedTodo } from '../../redux/features/trashedTodos/trashedTodos
 
 const { Content } = Layout;
 const dateFormat = 'DD/MM/YYYY';
+const { Countdown } = Statistic;
+
+// const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
 
 function MainPage() {
   const { todos } = useSelector((state: any) => state.todos);
-  const { isToured } = useSelector((state: any) => state.isToured);
   const { counter } = useSelector((state: any) => state.counter);
+  const { isToured } = useSelector((state: any) => state.isToured);
   const { trashedTodos } = useSelector((state: any) => state.trashedTodos);
   const dispatch = useDispatch();
 
@@ -157,6 +163,18 @@ function MainPage() {
   ];
   // End of For Tour Component
 
+  const onFinish: CountdownProps['onFinish'] = () => {
+    message.info(`Filtered by ${fliteredStatusText}`);
+  };
+
+  function countDateDiff(dateStr: string) {
+    const currentDate = dayjs();
+    const deadline = dayjs(dateStr, dateFormat);
+    const diffMs = Date.now() + deadline.diff(currentDate)
+    
+    return diffMs;
+  }
+
 
   const columns = [
     {
@@ -183,6 +201,13 @@ function MainPage() {
       dataIndex: 'deadline',
       render: (deadline: string | undefined) =>
         deadline ? deadline : 'No Deadline',
+    },
+
+    {
+      key: '5',
+      title: 'Staying time',
+      dataIndex: 'deadline',
+      render: (deadline: string) => (<Countdown value={countDateDiff(deadline)} onFinish={onFinish} />) 
     },
     {
       key: '5',
@@ -339,6 +364,8 @@ function MainPage() {
     return daysDifference;
   }
 
+
+  
   // dropdown config for filtering data BY STATUS
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     // message.info(`Filtered by ${fliteredStatusText}`);
